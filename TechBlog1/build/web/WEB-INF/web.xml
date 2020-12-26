@@ -12,6 +12,10 @@
         <servlet-name>Blogwritter</servlet-name>
         <servlet-class>Blogwritter</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>update</servlet-name>
+        <servlet-class>update</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>signup</servlet-name>
         <url-pattern>/signup</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>Blogwritter</servlet-name>
         <url-pattern>/Blogwritter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>update</servlet-name>
+        <url-pattern>/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

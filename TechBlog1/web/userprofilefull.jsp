@@ -1,3 +1,7 @@
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.ResultSet"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,38 +17,65 @@
 </head>
 <body>
     
-    <%
-    String blogname=request.getParameter("blogname");
-    out.print(blogname);
-    %>
-
-<div class="topnav" id="myTopnav">
-  <a href="profile.jsp">Profile page</a>
+    <div class="topnav" id="myTopnav">
+  <a href="Profile.jsp">Profile page</a>
   <a href="search1.jsp">Search page</a>
-  
-  <a href="login.jsp">Logout</a>
+     <a href="login.jsp">Logout</a>
   
   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
     <i class="fa fa-bars">++</i>
   </a>
 </div>
 
+    
+    
+    <%
+        
+    int id=Integer.parseInt(request.getParameter("id"));;
+    
+    %>
+    
+    <%
+    ResultSet rs=null;
+     try {
+          
+         Class.forName("com.mysql.jdbc.Driver");
+          Connection  con = DriverManager.getConnection("jdbc:mysql://localhost:3306/user", "root", "");
+        
+         Statement st=con.createStatement();
+ 
+rs=st.executeQuery("select * from content where id='"+id+"' ");
 
+                } catch (ClassNotFoundException ex) {
+                  out.println("exxxxxxxxxxxxxxxxxxxxxxxxxxx"+ex); 
+                }
+            //  cn=DriverManager.getConnection("jdbc:mysql://192.168.10.7:3306/login","utsav","utsav");
+while(rs.next()){      
+  
+
+        
+   
+    
+    
+    %>
 
 
 
 
 <div class="header">
-  <h2>Blog Name</h2>
+  <h2>  <%=rs.getString("blogname")%>
+  </h2>
 </div>
 
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      <h2></h2>
+      <h5> <%=rs.getString("titledescription")%></h5>
+      <p> <%=rs.getString("categories")%>
+</p>
+      <p> <%=rs.getString("blog")%>
+</p>
     </div>
 	
 
@@ -53,8 +84,10 @@
     </div>
   <div class="rightcolumn">
     <div class="card">
-      <h2>About Me</h2>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+      <h2> <%=rs.getString("aboutme")%>
+</h2>
+      <p> <%=rs.getString("description")%>
+</p>
     </div>
    
    </div>
@@ -65,7 +98,7 @@
 	<div class="col-lg-12">
  <label for="categories">Categories:</label>
   <select name="categories" id="cat">
-    <option value="AI">Atrificial Intelligence</option>
+    <option value="AI"> <%=rs.getString("categories")%></option>
     <option value="IT">IT and Education</option>
     <option value="robot">Robotics</option>
     <option value="quantum">Quantum Computer</option>
@@ -99,11 +132,13 @@
   
    
    <div class="footer">
-  <h2>Footer</h2>
+  <h2><%=rs.getString("footer")%></h2>
 </div>
 <div class="footer">
 <div class="row">
 <div class="col-lg-4">
+    
+     
 <form>
 <input type="text" disabled="disabled" value=" 1 view"></input>
 </div>
@@ -132,10 +167,17 @@
 
 
 <div class="footer">
-<form> 
+
+
+<form method="post" action="${pageContext.request.contextPath}/blogeditor.jsp"> 
+    <input type="hidden" name="id" value="<%=rs.getInt("id")%>">
 <input type="Submit" value="edit" style="height:50px; width:500px"></input>
-<input type="Submit" value="Delete" style="height:50px; width:500px"></input>
+    
 </form>
+    <form>
+    <input type="Submit" value="Delete" style="height:50px; width:500px"></input>
+</form>
+<%}%>
 </div>
    </div>
    

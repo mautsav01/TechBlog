@@ -15,7 +15,22 @@
 
 </head>
 <body>
+    <%
+    String msg3=request.getParameter("msg");
     
+    if(msg3!=null){
+        
+    
+    
+    %>
+    
+    <script>
+        alert("Blog Updated!!!");
+        
+    </script>
+    
+    
+    <%}%>
     
     <div class="topnav" id="myTopnav">
   <a href="blogwritter.jsp" name="email">Write a blog</a>
@@ -101,7 +116,7 @@ while(rs.next())
                     String s1=new String();
                     s1=rs.getString("blogname");
                     %>
-                    <input type="hidden" name="blogname" value="<%=rs.getString("id")%>">
+                    <input type="hidden" name="id" value="<%=rs.getInt("id")%>">
                     <p><input type="submit" class="button" value="ViewAll">
 		</form>
 		</p>
